@@ -107,17 +107,17 @@ function cardFloral() {
 }
 
 function traditionalLamp() {
-  return '<div class="lamp-wrap reveal" data-delay="600" aria-hidden="true">' +
+  return '<div class="lamp-wrap hero-seq" aria-hidden="true">' +
     '<svg viewBox="0 0 50 70" fill="none" xmlns="http://www.w3.org/2000/svg" class="lamp-svg">' +
     '<path d="M17,65 L33,65" stroke="var(--gold)" stroke-width="0.8" opacity="0.3"/>' +
     '<path d="M20,65 L20,62 L30,62 L30,65" stroke="var(--gold)" stroke-width="0.6" opacity="0.25" fill="none"/>' +
     '<path d="M22,62 L22,58 L28,58 L28,62" stroke="var(--gold)" stroke-width="0.5" opacity="0.22" fill="none"/>' +
     '<line x1="25" y1="58" x2="25" y2="34" stroke="var(--gold)" stroke-width="0.6" opacity="0.25"/>' +
     '<path d="M15,34 Q18,27 25,24 Q32,27 35,34" stroke="var(--gold)" stroke-width="0.7" opacity="0.28" fill="none"/>' +
-    '<path d="M25,24 Q23,17 25,10 Q27,17 25,24" fill="var(--gold)" opacity="0.14"/>' +
-    '<path d="M25,18 Q24,14 25,11 Q26,14 25,18" fill="var(--gold)" opacity="0.22"/>' +
-    '<circle cx="25" cy="12" r="5" fill="var(--gold)" opacity="0.04"/>' +
-    '<circle cx="25" cy="12" r="8" fill="var(--gold)" opacity="0.02"/>' +
+    '<path d="M25,24 Q23,17 25,10 Q27,17 25,24" fill="var(--gold)" class="flame-path" opacity="0.14"/>' +
+    '<path d="M25,18 Q24,14 25,11 Q26,14 25,18" fill="var(--gold)" class="flame-glow" opacity="0.22"/>' +
+    '<circle cx="25" cy="12" r="5" fill="var(--gold)" class="flame-halo" opacity="0.04"/>' +
+    '<circle cx="25" cy="12" r="8" fill="var(--gold)" class="flame-halo" opacity="0.02"/>' +
     '</svg></div>';
 }
 
@@ -170,8 +170,8 @@ function lampPairDivider() {
     '<path d="M8,42 L8,40 L12,40 L12,42" stroke="var(--gold)" stroke-width="0.4" opacity="0.18" fill="none"/>' +
     '<line x1="10" y1="40" x2="10" y2="24" stroke="var(--gold)" stroke-width="0.5" opacity="0.20"/>' +
     '<path d="M5,24 Q7,19 10,17 Q13,19 15,24" stroke="var(--gold)" stroke-width="0.5" opacity="0.22" fill="none"/>' +
-    '<path d="M10,17 Q9,12 10,7 Q11,12 10,17" fill="var(--gold)" opacity="0.12"/>' +
-    '<circle cx="10" cy="8" r="3" fill="var(--gold)" opacity="0.04"/>' +
+    '<path d="M10,17 Q9,12 10,7 Q11,12 10,17" fill="var(--gold)" class="flame-path" opacity="0.12"/>' +
+    '<circle cx="10" cy="8" r="3" fill="var(--gold)" class="flame-halo" opacity="0.04"/>' +
     '</g>' +
     '</svg></div>';
 }
@@ -180,17 +180,27 @@ function lampPairDivider() {
    UTILITIES
    ══════════════════════════════════════ */
 function ornament() {
-  return '<div class="ornament reveal" aria-hidden="true">' +
+  return '<div class="ornament hero-seq" aria-hidden="true">' +
     '<svg viewBox="0 0 200 18" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-    '<line x1="10" y1="9" x2="82" y2="9" stroke="var(--gold)" stroke-width="0.6" opacity="0.45" class="orn-line"/>' +
+    '<line x1="10" y1="9" x2="82" y2="9" stroke="var(--gold)" stroke-width="0.6" opacity="0.45"/>' +
     '<path d="M92,9 L100,2 L108,9 L100,16 Z" stroke="var(--gold)" stroke-width="0.6" fill="none" opacity="0.45"/>' +
     '<circle cx="100" cy="9" r="1.6" fill="var(--gold)" opacity="0.3"/>' +
-    '<line x1="118" y1="9" x2="190" y2="9" stroke="var(--gold)" stroke-width="0.6" opacity="0.45" class="orn-line"/>' +
+    '<line x1="118" y1="9" x2="190" y2="9" stroke="var(--gold)" stroke-width="0.6" opacity="0.45"/>' +
+    '</svg></div>';
+}
+
+function ornamentReveal() {
+  return '<div class="ornament reveal" aria-hidden="true">' +
+    '<svg viewBox="0 0 200 18" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+    '<line x1="10" y1="9" x2="82" y2="9" stroke="var(--gold)" stroke-width="0.6" opacity="0.45"/>' +
+    '<path d="M92,9 L100,2 L108,9 L100,16 Z" stroke="var(--gold)" stroke-width="0.6" fill="none" opacity="0.45"/>' +
+    '<circle cx="100" cy="9" r="1.6" fill="var(--gold)" opacity="0.3"/>' +
+    '<line x1="118" y1="9" x2="190" y2="9" stroke="var(--gold)" stroke-width="0.6" opacity="0.45"/>' +
     '</svg></div>';
 }
 
 function ornamentStar() {
-  return '<div class="ornament-star reveal" aria-hidden="true">' +
+  return '<div class="ornament-star" aria-hidden="true">' +
     '<svg viewBox="0 0 200 18" fill="none" xmlns="http://www.w3.org/2000/svg">' +
     '<line x1="30" y1="9" x2="88" y2="9" stroke="var(--gold-light)" stroke-width="0.5" opacity="0.5"/>' +
     '<text x="100" y="13" text-anchor="middle" fill="var(--gold-light)" font-size="10" opacity="0.7">&#10022;</text>' +
@@ -211,17 +221,13 @@ function getFullCountdown() {
 
 function generateICS(event) {
   var lines = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//Wedding//Invitation//EN',
+    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Wedding//Invitation//EN',
     'BEGIN:VEVENT',
-    'DTSTART:' + event.calendarStart,
-    'DTEND:' + event.calendarEnd,
+    'DTSTART:' + event.calendarStart, 'DTEND:' + event.calendarEnd,
     'SUMMARY:' + weddingConfig.groomName + ' & ' + weddingConfig.brideName + ' — ' + event.title,
     'LOCATION:' + event.venue + '\\, ' + event.address,
     'DESCRIPTION:' + event.title + ' of ' + weddingConfig.groomFullName + ' & ' + weddingConfig.brideFullName,
-    'END:VEVENT',
-    'END:VCALENDAR',
+    'END:VEVENT', 'END:VCALENDAR',
   ];
   return lines.join('\r\n');
 }
@@ -246,7 +252,6 @@ function createEnvelopeScene() {
   var c = weddingConfig;
   return '<div id="inviteScene" class="invite-scene">' +
     '<div class="invite-wrapper">' +
-
     '<div class="invite-card" id="inviteCard">' +
 
     '<div class="card-back">' +
@@ -261,10 +266,8 @@ function createEnvelopeScene() {
 
     '<div class="card-front" id="cardFront">' +
     '<div class="card-front-face">' +
-    '<div class="card-corner tl"></div>' +
-    '<div class="card-corner tr"></div>' +
-    '<div class="card-corner bl"></div>' +
-    '<div class="card-corner br"></div>' +
+    '<div class="card-corner tl"></div><div class="card-corner tr"></div>' +
+    '<div class="card-corner bl"></div><div class="card-corner br"></div>' +
     cardFloral() +
     '<p class="cf-pre">The Wedding of</p>' +
     '<h1 class="cf-name">' + c.groomName + '</h1>' +
@@ -282,10 +285,33 @@ function createEnvelopeScene() {
     '</div>' +
 
     '</div>' +
-
     '<p class="tap-hint" id="tapHint">Tap to Open</p>' +
-
     '</div></div>';
+}
+
+function createSealParticles() {
+  var seal = document.getElementById('waxSeal');
+  var card = document.getElementById('inviteCard');
+  if (!seal || !card) return;
+  var sealRect = seal.getBoundingClientRect();
+  var cardRect = card.getBoundingClientRect();
+  var cx = sealRect.left - cardRect.left + sealRect.width / 2;
+  var cy = sealRect.top - cardRect.top + sealRect.height / 2;
+
+  for (var i = 0; i < 14; i++) {
+    var p = document.createElement('div');
+    p.className = 'seal-particle';
+    var angle = (Math.PI * 2 / 14) * i + (Math.random() - 0.5) * 0.6;
+    var dist = 25 + Math.random() * 35;
+    p.style.setProperty('--tx', (Math.cos(angle) * dist) + 'px');
+    p.style.setProperty('--ty', (Math.sin(angle) * dist) + 'px');
+    p.style.left = cx + 'px';
+    p.style.top = cy + 'px';
+    p.style.width = (2 + Math.random() * 2.5) + 'px';
+    p.style.height = p.style.width;
+    p.style.animationDelay = (Math.random() * 0.12) + 's';
+    card.appendChild(p);
+  }
 }
 
 /* ══════════════════════════════════════
@@ -303,37 +329,33 @@ function createHero() {
     '<div class="hero-floral hero-floral-br">' + floralCorner() + '</div>' +
 
     '<div class="hero-content">' +
-    '<p class="hero-subtitle reveal" data-delay="0">Together with our families</p>' +
+    '<p class="hero-subtitle hero-seq">Together with our families</p>' +
     ornament() +
+    '<h1 class="hero-name hero-seq">' + c.groomName + '</h1>' +
 
-    '<h1 class="hero-name reveal" data-delay="200">' + c.groomName + '</h1>' +
-
-    '<div class="hero-portrait reveal" data-delay="400">' +
+    '<div class="hero-portrait hero-seq">' +
     '<div class="hero-portrait-glow"></div>' +
+    '<div class="hero-portrait-sweep"></div>' +
     '<img src="' + c.couplePhoto + '" alt="' + c.groomName + ' & ' + c.brideName + '">' +
     '</div>' +
 
-    '<span class="hero-amp reveal" data-delay="450">&</span>' +
-    '<h1 class="hero-name reveal" data-delay="550">' + c.brideName + '</h1>' +
-
+    '<span class="hero-amp hero-seq">&</span>' +
+    '<h1 class="hero-name hero-seq">' + c.brideName + '</h1>' +
     ornament() +
-
-    '<p class="hero-tagline reveal" data-delay="650">request the pleasure of your presence</p>' +
-    '<p class="hero-date reveal" data-delay="700">November 2026</p>' +
-
-    '<div class="countdown reveal" data-delay="750" id="countdownTimer"></div>' +
-
+    '<p class="hero-tagline hero-seq">request the pleasure of your presence</p>' +
+    '<p class="hero-date hero-seq">November 2026</p>' +
+    '<div class="countdown hero-seq" id="countdownTimer"></div>' +
     traditionalLamp() +
-
     '</div>' +
 
     '<div class="scroll-indicator" id="scrollIndicator">' +
-    '<span class="scroll-text">Discover Our Day</span>' +
-    '<div class="scroll-arrow">' +
+    '<span class="scroll-label">Discover Our Day</span>' +
+    '<div class="scroll-chevron">' +
     '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-    '<polyline points="7 10 12 15 17 10" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '<polyline points="7 10 12 15 17 10" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' +
     '</svg>' +
     '</div>' +
+    '<div class="scroll-line"></div>' +
     '</div>' +
 
     '</section>';
@@ -343,8 +365,7 @@ function createAnnouncement() {
   var c = weddingConfig;
   var noticeHtml = '';
   if (c.announcements && c.announcements.length > 0) {
-    noticeHtml = '<div class="ann-divider-line"></div>' +
-      '<div class="ann-notice">';
+    noticeHtml = '<div class="ann-divider-line"></div><div class="ann-notice">';
     for (var i = 0; i < c.announcements.length; i++) {
       noticeHtml += '<p class="ann-notice-text">' + c.announcements[i] + '</p>';
     }
@@ -353,16 +374,17 @@ function createAnnouncement() {
 
   return '<section class="announcement" id="announcement">' +
     '<div class="ann-frame reveal">' +
+    '<div class="ann-frame-border"></div>' +
+    '<div class="ann-frame-inner"></div>' +
     ornamentStar() +
     '<p class="ann-welcome">' + c.welcomeMessage + '</p>' +
     noticeHtml +
-    '</div>' +
-    '</section>';
+    '</div></section>';
 }
 
-function createEventCard(event) {
+function createEventCard(event, index) {
   var c = weddingConfig;
-  return '<div class="event-card reveal">' +
+  return '<div class="event-card reveal" data-delay="' + (index * 200) + '">' +
     '<div class="event-card-accent"></div>' +
     '<div class="event-icon">' + icons.calendar + '</div>' +
     '<h3 class="event-title">' + event.title + '</h3>' +
@@ -379,11 +401,11 @@ function createEventCard(event) {
 
 function createDetails() {
   return '<section class="details section" id="details">' +
-    ornament() +
+    ornamentReveal() +
     '<h2 class="section-title reveal">Wedding Celebrations</h2>' +
     '<div class="events">' +
-    createEventCard(weddingConfig.reception) +
-    createEventCard(weddingConfig.muhurtham) +
+    createEventCard(weddingConfig.reception, 0) +
+    createEventCard(weddingConfig.muhurtham, 1) +
     '</div></section>';
 }
 
@@ -393,12 +415,12 @@ function createGallery() {
   var items = '';
   for (var i = 0; i < photos.length; i++) {
     var cls = 'gallery-item reveal' + (photos[i].featured ? ' gallery-item--featured' : '');
-    items += '<div class="' + cls + '" data-index="' + i + '">' +
+    items += '<div class="' + cls + '" data-index="' + i + '" data-delay="' + (i * 150) + '">' +
       '<img src="' + photos[i].src + '" alt="' + photos[i].alt + '" loading="lazy">' +
       '</div>';
   }
   return '<section class="gallery section" id="gallery">' +
-    ornament() +
+    ornamentReveal() +
     '<h2 class="section-title reveal">Moments</h2>' +
     '<div class="gallery-grid">' + items + '</div>' +
     '</section>';
@@ -419,11 +441,11 @@ function createVenue() {
 function createClosing() {
   var c = weddingConfig;
   return '<section class="closing section" id="closing">' +
-    ornament() +
+    ornamentReveal() +
     '<p class="closing-message reveal">' + c.closingMessage + '</p>' +
     '<p class="closing-names reveal">' + c.groomName + ' & ' + c.brideName + '</p>' +
     '<p class="closing-date reveal">November 2026</p>' +
-    ornament() +
+    ornamentReveal() +
     '<p class="closing-footer reveal">With love and blessings from both families</p>' +
     '</section>';
 }
@@ -431,18 +453,15 @@ function createClosing() {
 function createMusicToggle() {
   if (!weddingConfig.music) return '';
   return '<button class="music-toggle" id="musicToggle" aria-label="Toggle music">' +
-    '<span id="musicIcon">&#128263;</span>' +
-    '</button>' +
+    '<span id="musicIcon">&#128263;</span></button>' +
     '<audio id="weddingAudio" loop preload="none">' +
-    '<source src="' + weddingConfig.music + '" type="audio/mpeg">' +
-    '</audio>';
+    '<source src="' + weddingConfig.music + '" type="audio/mpeg"></audio>';
 }
 
 function createLightbox() {
   return '<div class="lightbox" id="lightbox">' +
     '<button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>' +
-    '<img src="" alt="" id="lightboxImg">' +
-    '</div>';
+    '<img src="" alt="" id="lightboxImg"></div>';
 }
 
 /* ══════════════════════════════════════
@@ -465,54 +484,71 @@ function setupEnvelope() {
     animating = true;
 
     hint.classList.add('hidden');
+    createSealParticles();
     seal.classList.add('broken');
 
     animationTimeouts.push(setTimeout(function () {
       card.classList.add('opened');
-    }, 150));
+    }, 200));
 
     animationTimeouts.push(setTimeout(function () {
       scene.classList.add('fade-out');
-    }, 1800));
+    }, 1900));
 
     animationTimeouts.push(setTimeout(function () {
       scene.classList.add('removed');
       page.classList.add('visible');
       animating = false;
-      onPageVisible();
-    }, 2500));
+      onPageVisible(false);
+    }, 2600));
 
     try { sessionStorage.setItem('invitation-opened', '1'); } catch (e) {}
   }
 
   function skipToPage() {
     if (!animating) return;
-    for (var i = 0; i < animationTimeouts.length; i++) {
-      clearTimeout(animationTimeouts[i]);
-    }
+    for (var i = 0; i < animationTimeouts.length; i++) clearTimeout(animationTimeouts[i]);
     animationTimeouts = [];
     scene.classList.add('removed');
     page.classList.add('visible');
     page.style.transition = 'none';
     animating = false;
-    onPageVisible();
+    onPageVisible(true);
   }
 
   card.addEventListener('click', openCard);
-
   scene.addEventListener('click', function (e) {
-    if (animating && e.target !== card && !card.contains(e.target)) {
-      skipToPage();
-    }
+    if (animating && e.target !== card && !card.contains(e.target)) skipToPage();
   });
 }
 
-function onPageVisible() {
+function onPageVisible(fast) {
+  revealHeroSequence(fast);
   setupAnimations();
   setupParticles();
   setupCountdown();
   setupScrollIndicator();
   showMusicToggle();
+}
+
+function revealHeroSequence(fast) {
+  var items = document.querySelectorAll('.hero-seq');
+  var delays = fast
+    ? [0,0,0,0,0,0,0,0,0,0,0,0]
+    : [200,450,700,1000,1350,1500,1750,2000,2200,2350,2500,2650];
+
+  for (var i = 0; i < items.length; i++) {
+    (function(el, d) {
+      setTimeout(function () { el.classList.add('visible'); }, d);
+    })(items[i], delays[i] || delays[delays.length - 1]);
+  }
+
+  var indicator = document.getElementById('scrollIndicator');
+  if (indicator) {
+    setTimeout(function () {
+      indicator.classList.add('active');
+    }, fast ? 300 : 3000);
+  }
 }
 
 function setupAnimations() {
@@ -521,93 +557,83 @@ function setupAnimations() {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           var delay = entry.target.getAttribute('data-delay');
-          if (delay) {
-            entry.target.style.transitionDelay = delay + 'ms';
-          }
+          if (delay) entry.target.style.transitionDelay = delay + 'ms';
           entry.target.classList.add('visible');
           observer.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.08, rootMargin: '0px 0px -20px 0px' }
+    { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
   );
 
   var elements = document.querySelectorAll('#weddingPage .reveal');
-  for (var i = 0; i < elements.length; i++) {
-    observer.observe(elements[i]);
-  }
+  for (var i = 0; i < elements.length; i++) observer.observe(elements[i]);
 }
 
 function setupParticles() {
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
   var canvas = document.getElementById('particleCanvas');
   if (!canvas) return;
   var ctx = canvas.getContext('2d');
   var particles = [];
-  var count = window.innerWidth < 600 ? 20 : 35;
+  var count = window.innerWidth < 600 ? 22 : 38;
   var running = true;
 
-  function resize() {
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-  }
+  function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
 
   function make() {
     return {
       x: Math.random() * canvas.width,
       y: canvas.height + Math.random() * 20,
-      size: Math.random() * 2.2 + 0.5,
-      vy: -(Math.random() * 0.22 + 0.06),
-      vx: (Math.random() - 0.5) * 0.12,
-      opacity: Math.random() * 0.18 + 0.03,
-      wobble: Math.random() * Math.PI * 2,
-      wobbleSpeed: Math.random() * 0.008 + 0.003,
+      size: Math.random() * 2.5 + 0.4,
+      vy: -(Math.random() * 0.2 + 0.05),
+      vx: (Math.random() - 0.5) * 0.1,
+      opacity: 0,
+      maxOpacity: Math.random() * 0.18 + 0.03,
+      phase: Math.random() * Math.PI * 2,
+      wobble: Math.random() * 0.01 + 0.003,
+      life: 0,
+      maxLife: 300 + Math.random() * 400,
     };
   }
 
-  for (var i = 0; i < count; i++) {
-    var p = make();
-    p.y = Math.random() * canvas.height;
-    particles.push(p);
-  }
+  for (var i = 0; i < count; i++) { var p = make(); p.y = Math.random() * canvas.height; p.life = Math.random() * p.maxLife; particles.push(p); }
 
   function draw() {
     if (!running) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (var i = 0; i < particles.length; i++) {
       var p = particles[i];
+      p.life++;
+      var lifeRatio = p.life / p.maxLife;
+      if (lifeRatio < 0.15) p.opacity = p.maxOpacity * (lifeRatio / 0.15);
+      else if (lifeRatio > 0.85) p.opacity = p.maxOpacity * ((1 - lifeRatio) / 0.15);
+      else p.opacity = p.maxOpacity;
+
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       ctx.fillStyle = 'rgba(184, 150, 62, ' + p.opacity + ')';
       ctx.fill();
       p.y += p.vy;
-      p.wobble += p.wobbleSpeed;
-      p.x += p.vx + Math.sin(p.wobble) * 0.08;
-      if (p.y < -10) particles[i] = make();
+      p.phase += p.wobble;
+      p.x += p.vx + Math.sin(p.phase) * 0.06;
+      if (p.life >= p.maxLife || p.y < -10) particles[i] = make();
     }
     requestAnimationFrame(draw);
   }
 
   resize();
   window.addEventListener('resize', resize);
-
   var heroEl = document.getElementById('home');
-  var io = new IntersectionObserver(function (entries) {
-    running = entries[0].isIntersecting;
-    if (running) draw();
-  }, { threshold: 0 });
+  var io = new IntersectionObserver(function (e) { running = e[0].isIntersecting; if (running) draw(); }, { threshold: 0 });
   if (heroEl) io.observe(heroEl);
-
   draw();
 }
 
 function setupCountdown() {
   var el = document.getElementById('countdownTimer');
   if (!el) return;
-
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
-
   function update() {
     var cd = getFullCountdown();
     if (!cd) { el.innerHTML = ''; return; }
@@ -628,13 +654,12 @@ function setupScrollIndicator() {
   var indicator = document.getElementById('scrollIndicator');
   if (!indicator) return;
   var hidden = false;
-  function onScroll() {
-    if (!hidden && window.scrollY > 60) {
+  window.addEventListener('scroll', function () {
+    if (!hidden && window.scrollY > 50) {
       indicator.classList.add('hidden');
       hidden = true;
     }
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
+  }, { passive: true });
   indicator.addEventListener('click', function () {
     var ann = document.getElementById('announcement');
     if (ann) ann.scrollIntoView({ behavior: 'smooth' });
@@ -646,7 +671,6 @@ function setupGallery() {
   var lightboxImg = document.getElementById('lightboxImg');
   var lightboxClose = document.getElementById('lightboxClose');
   if (!lightbox) return;
-
   var items = document.querySelectorAll('.gallery-item');
   for (var i = 0; i < items.length; i++) {
     items[i].addEventListener('click', (function (item) {
@@ -659,19 +683,10 @@ function setupGallery() {
       };
     })(items[i]));
   }
-
-  function closeLB() {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
+  function closeLB() { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
   lightboxClose.addEventListener('click', closeLB);
-  lightbox.addEventListener('click', function (e) {
-    if (e.target === lightbox) closeLB();
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') closeLB();
-  });
+  lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLB(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLB(); });
 }
 
 function setupCalendar() {
@@ -680,9 +695,7 @@ function setupCalendar() {
     buttons[i].addEventListener('click', (function (btn) {
       return function () {
         var title = btn.getAttribute('data-calendar');
-        var event = title === weddingConfig.reception.title
-          ? weddingConfig.reception
-          : weddingConfig.muhurtham;
+        var event = title === weddingConfig.reception.title ? weddingConfig.reception : weddingConfig.muhurtham;
         downloadICS(event);
       };
     })(buttons[i]));
@@ -694,16 +707,10 @@ function setupMusic() {
   var audio = document.getElementById('weddingAudio');
   var icon = document.getElementById('musicIcon');
   if (!toggle || !audio) return;
-
   var playing = false;
   toggle.addEventListener('click', function () {
-    if (playing) {
-      audio.pause();
-      icon.innerHTML = '&#128263;';
-    } else {
-      audio.play();
-      icon.innerHTML = '&#128266;';
-    }
+    if (playing) { audio.pause(); icon.innerHTML = '&#128263;'; }
+    else { audio.play(); icon.innerHTML = '&#128266;'; }
     playing = !playing;
     try { sessionStorage.setItem('music-playing', playing ? '1' : '0'); } catch (e) {}
   });
@@ -711,9 +718,7 @@ function setupMusic() {
 
 function showMusicToggle() {
   var toggle = document.getElementById('musicToggle');
-  if (toggle) {
-    setTimeout(function () { toggle.classList.add('show'); }, 600);
-  }
+  if (toggle) setTimeout(function () { toggle.classList.add('show'); }, 600);
 }
 
 /* ══════════════════════════════════════
@@ -741,12 +746,11 @@ function init() {
   try { alreadyOpened = sessionStorage.getItem('invitation-opened') === '1'; } catch (e) {}
 
   if (alreadyOpened) {
-    var scene = document.getElementById('inviteScene');
+    document.getElementById('inviteScene').classList.add('removed');
     var page = document.getElementById('weddingPage');
-    scene.classList.add('removed');
     page.classList.add('visible');
     page.style.transition = 'none';
-    onPageVisible();
+    onPageVisible(true);
   } else {
     setupEnvelope();
   }
