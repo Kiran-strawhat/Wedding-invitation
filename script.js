@@ -47,17 +47,18 @@ var weddingConfig = {
     mapsUrl: 'https://www.google.com/maps/search/S.S.+Mahal+Nanjappagoundenpudur+Sathyamangalam',
   },
 
+  welcomeMessage: 'With great joy, we invite you to celebrate our special day with us.',
+
   announcements: [
-    'With great joy, we invite you to celebrate our special day with us.',
     'Muhurtham begins promptly at 5:00 AM. Please be seated by 4:45 AM.',
   ],
 
   gallery: [
-    { src: 'assets/images/couple.jpg', alt: 'Harikrishnan & Pooja' },
+    { src: 'assets/images/couple.jpg', alt: 'Harikrishnan & Pooja', featured: true },
     { src: 'assets/images/family.jpg', alt: 'Family celebration' },
   ],
 
-  closingMessage: 'We look forward to celebrating this special day with you.',
+  closingMessage: 'We look forward to celebrating this beautiful beginning with you.',
   music: null,
 };
 
@@ -78,17 +79,20 @@ var icons = {
    ══════════════════════════════════════ */
 function floralCorner() {
   return '<svg viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-    '<path d="M5,145 C5,100 15,65 40,45 C55,33 75,22 100,15 C120,10 140,7 148,5" stroke="var(--gold)" stroke-width="0.7" opacity="0.22"/>' +
-    '<path d="M8,125 C12,90 28,58 52,40 C72,27 92,18 118,12" stroke="var(--gold)" stroke-width="0.4" opacity="0.14"/>' +
-    '<path d="M28,72 C34,58 30,48 24,53 C26,62 28,72 28,72Z" fill="var(--gold)" opacity="0.08"/>' +
-    '<path d="M52,42 C58,28 54,18 48,24 C50,32 52,42 52,42Z" fill="var(--gold)" opacity="0.07"/>' +
-    '<path d="M14,102 C20,90 16,80 10,85 C12,92 14,102 14,102Z" fill="var(--gold)" opacity="0.06"/>' +
-    '<path d="M82,22 C88,10 84,2 78,7 C80,14 82,22 82,22Z" fill="var(--gold)" opacity="0.06"/>' +
-    '<path d="M38,55 C42,47 40,40 36,43 C37,48 38,55 38,55Z" fill="var(--gold)" opacity="0.05"/>' +
-    '<circle cx="40" cy="48" r="2" fill="var(--gold)" opacity="0.1"/>' +
-    '<circle cx="100" cy="15" r="1.5" fill="var(--gold)" opacity="0.08"/>' +
-    '<circle cx="18" cy="92" r="1.5" fill="var(--gold)" opacity="0.07"/>' +
-    '<circle cx="65" cy="30" r="1.2" fill="var(--gold)" opacity="0.08"/>' +
+    '<path d="M5,145 C5,95 18,60 45,40 C60,30 80,20 108,13 C128,8 145,5 148,4" stroke="var(--gold)" stroke-width="0.8" opacity="0.28"/>' +
+    '<path d="M8,130 C12,88 28,55 55,36 C78,22 100,15 130,9" stroke="var(--gold)" stroke-width="0.5" opacity="0.18"/>' +
+    '<path d="M12,115 C18,80 35,52 60,38 C80,28 98,22 120,16" stroke="var(--gold)" stroke-width="0.3" opacity="0.10"/>' +
+    '<path d="M28,72 C36,56 32,44 24,50 C26,60 28,72 28,72Z" fill="var(--gold)" opacity="0.10"/>' +
+    '<path d="M52,42 C60,26 56,14 48,20 C50,30 52,42 52,42Z" fill="var(--gold)" opacity="0.09"/>' +
+    '<path d="M14,102 C22,88 18,76 10,82 C12,90 14,102 14,102Z" fill="var(--gold)" opacity="0.08"/>' +
+    '<path d="M82,22 C90,8 86,0 78,5 C80,12 82,22 82,22Z" fill="var(--gold)" opacity="0.07"/>' +
+    '<path d="M38,55 C44,45 42,36 36,40 C37,46 38,55 38,55Z" fill="var(--gold)" opacity="0.07"/>' +
+    '<path d="M68,32 C74,22 72,14 66,18 C68,24 68,32 68,32Z" fill="var(--gold)" opacity="0.06"/>' +
+    '<circle cx="40" cy="48" r="2.2" fill="var(--gold)" opacity="0.12"/>' +
+    '<circle cx="105" cy="14" r="1.8" fill="var(--gold)" opacity="0.10"/>' +
+    '<circle cx="18" cy="92" r="1.8" fill="var(--gold)" opacity="0.09"/>' +
+    '<circle cx="65" cy="30" r="1.5" fill="var(--gold)" opacity="0.10"/>' +
+    '<circle cx="30" cy="65" r="1.2" fill="var(--gold)" opacity="0.08"/>' +
     '</svg>';
 }
 
@@ -117,6 +121,61 @@ function traditionalLamp() {
     '</svg></div>';
 }
 
+function jasmineGarland() {
+  var buds = '';
+  var positions = [
+    [45,14],[65,12],[85,13],[105,16],[125,18],[145,18],[165,16],[185,14],[205,12],[225,13]
+  ];
+  for (var i = 0; i < positions.length; i++) {
+    var x = positions[i][0], y = positions[i][1];
+    var r = 3.5 + Math.sin(i * 1.1) * 0.8;
+    buds += '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="var(--bg)" stroke="var(--gold)" stroke-width="0.35" opacity="0.18"/>';
+    buds += '<circle cx="'+x+'" cy="'+(y-2)+'" r="1" fill="var(--gold)" opacity="0.06"/>';
+    buds += '<circle cx="'+(x+2)+'" cy="'+y+'" r="1" fill="var(--gold)" opacity="0.06"/>';
+    buds += '<circle cx="'+x+'" cy="'+(y+2)+'" r="1" fill="var(--gold)" opacity="0.06"/>';
+    buds += '<circle cx="'+(x-2)+'" cy="'+y+'" r="1" fill="var(--gold)" opacity="0.06"/>';
+    buds += '<circle cx="'+x+'" cy="'+y+'" r="1.3" fill="var(--gold)" opacity="0.10"/>';
+  }
+  return '<div class="section-divider jasmine-wrap reveal" aria-hidden="true">' +
+    '<svg viewBox="0 0 270 30" class="jasmine-svg" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+    '<path d="M8,16 C40,8 80,10 120,16 C160,22 200,20 262,14" stroke="var(--gold)" stroke-width="0.35" opacity="0.14"/>' +
+    '<path d="M12,18 C44,10 84,12 124,18 C164,24 204,22 258,16" stroke="var(--gold)" stroke-width="0.25" opacity="0.08"/>' +
+    buds +
+    '</svg></div>';
+}
+
+function mandapamArch() {
+  return '<div class="mandapam-wrap reveal" aria-hidden="true">' +
+    '<svg viewBox="0 0 200 90" fill="none" xmlns="http://www.w3.org/2000/svg" class="mandapam-svg">' +
+    '<path d="M30,85 L30,38 C30,15 65,5 100,5 C135,5 170,15 170,38 L170,85" stroke="var(--gold)" stroke-width="0.7" opacity="0.18"/>' +
+    '<path d="M42,85 L42,42 C42,22 68,14 100,14 C132,14 158,22 158,42 L158,85" stroke="var(--gold)" stroke-width="0.45" opacity="0.12"/>' +
+    '<path d="M95,5 C98,0 102,0 105,5" stroke="var(--gold)" stroke-width="0.5" opacity="0.15"/>' +
+    '<circle cx="100" cy="2" r="2.5" fill="var(--gold)" opacity="0.08"/>' +
+    '<path d="M54,85 L54,48 C54,32 74,24 100,24 C126,24 146,32 146,48 L146,85" stroke="var(--gold)" stroke-width="0.3" opacity="0.07"/>' +
+    '<rect x="27" y="82" width="6" height="3" rx="0.5" fill="var(--gold)" opacity="0.06"/>' +
+    '<rect x="167" y="82" width="6" height="3" rx="0.5" fill="var(--gold)" opacity="0.06"/>' +
+    '<line x1="20" y1="85" x2="180" y2="85" stroke="var(--gold)" stroke-width="0.5" opacity="0.12"/>' +
+    '<circle cx="100" cy="40" r="8" fill="none" stroke="var(--gold)" stroke-width="0.3" opacity="0.06"/>' +
+    '<circle cx="100" cy="40" r="3" fill="var(--gold)" opacity="0.04"/>' +
+    '</svg></div>';
+}
+
+function lampPairDivider() {
+  return '<div class="section-divider lamp-pair-wrap reveal" aria-hidden="true">' +
+    '<svg viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg" class="lamp-pair-svg">' +
+    '<line x1="20" y1="25" x2="70" y2="25" stroke="var(--gold)" stroke-width="0.4" opacity="0.15"/>' +
+    '<line x1="130" y1="25" x2="180" y2="25" stroke="var(--gold)" stroke-width="0.4" opacity="0.15"/>' +
+    '<g transform="translate(90,5)">' +
+    '<path d="M7,42 L13,42" stroke="var(--gold)" stroke-width="0.6" opacity="0.22"/>' +
+    '<path d="M8,42 L8,40 L12,40 L12,42" stroke="var(--gold)" stroke-width="0.4" opacity="0.18" fill="none"/>' +
+    '<line x1="10" y1="40" x2="10" y2="24" stroke="var(--gold)" stroke-width="0.5" opacity="0.20"/>' +
+    '<path d="M5,24 Q7,19 10,17 Q13,19 15,24" stroke="var(--gold)" stroke-width="0.5" opacity="0.22" fill="none"/>' +
+    '<path d="M10,17 Q9,12 10,7 Q11,12 10,17" fill="var(--gold)" opacity="0.12"/>' +
+    '<circle cx="10" cy="8" r="3" fill="var(--gold)" opacity="0.04"/>' +
+    '</g>' +
+    '</svg></div>';
+}
+
 /* ══════════════════════════════════════
    UTILITIES
    ══════════════════════════════════════ */
@@ -127,6 +186,15 @@ function ornament() {
     '<path d="M92,9 L100,2 L108,9 L100,16 Z" stroke="var(--gold)" stroke-width="0.6" fill="none" opacity="0.45"/>' +
     '<circle cx="100" cy="9" r="1.6" fill="var(--gold)" opacity="0.3"/>' +
     '<line x1="118" y1="9" x2="190" y2="9" stroke="var(--gold)" stroke-width="0.6" opacity="0.45" class="orn-line"/>' +
+    '</svg></div>';
+}
+
+function ornamentStar() {
+  return '<div class="ornament-star reveal" aria-hidden="true">' +
+    '<svg viewBox="0 0 200 18" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+    '<line x1="30" y1="9" x2="88" y2="9" stroke="var(--gold-light)" stroke-width="0.5" opacity="0.5"/>' +
+    '<text x="100" y="13" text-anchor="middle" fill="var(--gold-light)" font-size="10" opacity="0.7">&#10022;</text>' +
+    '<line x1="112" y1="9" x2="170" y2="9" stroke="var(--gold-light)" stroke-width="0.5" opacity="0.5"/>' +
     '</svg></div>';
 }
 
@@ -238,48 +306,71 @@ function createHero() {
     '<p class="hero-subtitle reveal" data-delay="0">Together with our families</p>' +
     ornament() +
 
-    '<h1 class="hero-name reveal" data-delay="150">' + c.groomName + '</h1>' +
+    '<h1 class="hero-name reveal" data-delay="200">' + c.groomName + '</h1>' +
 
-    '<div class="hero-portrait reveal" data-delay="300">' +
+    '<div class="hero-portrait reveal" data-delay="400">' +
+    '<div class="hero-portrait-glow"></div>' +
     '<img src="' + c.couplePhoto + '" alt="' + c.groomName + ' & ' + c.brideName + '">' +
     '</div>' +
 
-    '<span class="hero-amp reveal" data-delay="350">&</span>' +
-    '<h1 class="hero-name reveal" data-delay="450">' + c.brideName + '</h1>' +
+    '<span class="hero-amp reveal" data-delay="450">&</span>' +
+    '<h1 class="hero-name reveal" data-delay="550">' + c.brideName + '</h1>' +
 
     ornament() +
 
-    '<p class="hero-tagline reveal" data-delay="550">request the pleasure of your presence</p>' +
-    '<p class="hero-date reveal" data-delay="600">November 2026</p>' +
+    '<p class="hero-tagline reveal" data-delay="650">request the pleasure of your presence</p>' +
+    '<p class="hero-date reveal" data-delay="700">November 2026</p>' +
 
-    '<div class="countdown reveal" data-delay="650" id="countdownTimer"></div>' +
+    '<div class="countdown reveal" data-delay="750" id="countdownTimer"></div>' +
 
     traditionalLamp() +
 
-    '</div></section>';
+    '</div>' +
+
+    '<div class="scroll-indicator" id="scrollIndicator">' +
+    '<span class="scroll-text">Discover Our Day</span>' +
+    '<div class="scroll-arrow">' +
+    '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+    '<polyline points="7 10 12 15 17 10" stroke="var(--gold)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>' +
+    '</svg>' +
+    '</div>' +
+    '</div>' +
+
+    '</section>';
 }
 
 function createAnnouncement() {
-  var items = weddingConfig.announcements;
-  if (!items || items.length === 0) return '';
-  var html = '';
-  for (var i = 0; i < items.length; i++) {
-    html += '<p class="announcement-text">' + items[i] + '</p>';
+  var c = weddingConfig;
+  var noticeHtml = '';
+  if (c.announcements && c.announcements.length > 0) {
+    noticeHtml = '<div class="ann-divider-line"></div>' +
+      '<div class="ann-notice">';
+    for (var i = 0; i < c.announcements.length; i++) {
+      noticeHtml += '<p class="ann-notice-text">' + c.announcements[i] + '</p>';
+    }
+    noticeHtml += '</div>';
   }
+
   return '<section class="announcement" id="announcement">' +
-    '<div class="announcement-icon reveal">' + icons.bell + '</div>' +
-    '<div class="reveal">' + html + '</div>' +
+    '<div class="ann-frame reveal">' +
+    ornamentStar() +
+    '<p class="ann-welcome">' + c.welcomeMessage + '</p>' +
+    noticeHtml +
+    '</div>' +
     '</section>';
 }
 
 function createEventCard(event) {
   var c = weddingConfig;
   return '<div class="event-card reveal">' +
+    '<div class="event-card-accent"></div>' +
     '<div class="event-icon">' + icons.calendar + '</div>' +
     '<h3 class="event-title">' + event.title + '</h3>' +
+    '<div class="event-details">' +
     '<div class="event-info">' + icons.calendar + '<span>' + event.date + '</span></div>' +
     '<div class="event-info">' + icons.clock + '<span>' + event.time + '</span></div>' +
     '<div class="event-info venue-line">' + icons.mapPin + '<span>' + event.venue + ', ' + event.address + '</span></div>' +
+    '</div>' +
     '<div class="event-actions">' +
     '<button class="btn" data-calendar="' + event.title + '">' + icons.download + ' Add to Calendar</button>' +
     '<a class="btn" href="' + c.venue.mapsUrl + '" target="_blank" rel="noopener noreferrer">' + icons.navigation + ' Directions</a>' +
@@ -288,6 +379,7 @@ function createEventCard(event) {
 
 function createDetails() {
   return '<section class="details section" id="details">' +
+    ornament() +
     '<h2 class="section-title reveal">Wedding Celebrations</h2>' +
     '<div class="events">' +
     createEventCard(weddingConfig.reception) +
@@ -300,11 +392,13 @@ function createGallery() {
   if (!photos || photos.length === 0) return '';
   var items = '';
   for (var i = 0; i < photos.length; i++) {
-    items += '<div class="gallery-item reveal" data-index="' + i + '">' +
+    var cls = 'gallery-item reveal' + (photos[i].featured ? ' gallery-item--featured' : '');
+    items += '<div class="' + cls + '" data-index="' + i + '">' +
       '<img src="' + photos[i].src + '" alt="' + photos[i].alt + '" loading="lazy">' +
       '</div>';
   }
   return '<section class="gallery section" id="gallery">' +
+    ornament() +
     '<h2 class="section-title reveal">Moments</h2>' +
     '<div class="gallery-grid">' + items + '</div>' +
     '</section>';
@@ -313,7 +407,7 @@ function createGallery() {
 function createVenue() {
   var v = weddingConfig.venue;
   return '<section class="venue section" id="venue">' +
-    ornament() +
+    mandapamArch() +
     '<h2 class="section-title reveal">Venue</h2>' +
     '<p class="venue-name reveal">' + v.name + '</p>' +
     '<p class="venue-address reveal">' + v.address + '</p>' +
@@ -329,8 +423,8 @@ function createClosing() {
     '<p class="closing-message reveal">' + c.closingMessage + '</p>' +
     '<p class="closing-names reveal">' + c.groomName + ' & ' + c.brideName + '</p>' +
     '<p class="closing-date reveal">November 2026</p>' +
-    '<p class="closing-footer reveal">With love and blessings from both families</p>' +
     ornament() +
+    '<p class="closing-footer reveal">With love and blessings from both families</p>' +
     '</section>';
 }
 
@@ -385,10 +479,7 @@ function setupEnvelope() {
       scene.classList.add('removed');
       page.classList.add('visible');
       animating = false;
-      setupAnimations();
-      setupParticles();
-      setupCountdown();
-      showMusicToggle();
+      onPageVisible();
     }, 2500));
 
     try { sessionStorage.setItem('invitation-opened', '1'); } catch (e) {}
@@ -404,10 +495,7 @@ function setupEnvelope() {
     page.classList.add('visible');
     page.style.transition = 'none';
     animating = false;
-    setupAnimations();
-    setupParticles();
-    setupCountdown();
-    showMusicToggle();
+    onPageVisible();
   }
 
   card.addEventListener('click', openCard);
@@ -417,6 +505,14 @@ function setupEnvelope() {
       skipToPage();
     }
   });
+}
+
+function onPageVisible() {
+  setupAnimations();
+  setupParticles();
+  setupCountdown();
+  setupScrollIndicator();
+  showMusicToggle();
 }
 
 function setupAnimations() {
@@ -449,7 +545,7 @@ function setupParticles() {
   if (!canvas) return;
   var ctx = canvas.getContext('2d');
   var particles = [];
-  var count = window.innerWidth < 600 ? 18 : 30;
+  var count = window.innerWidth < 600 ? 20 : 35;
   var running = true;
 
   function resize() {
@@ -461,10 +557,12 @@ function setupParticles() {
     return {
       x: Math.random() * canvas.width,
       y: canvas.height + Math.random() * 20,
-      size: Math.random() * 2 + 0.5,
-      vy: -(Math.random() * 0.25 + 0.08),
-      vx: (Math.random() - 0.5) * 0.15,
-      opacity: Math.random() * 0.2 + 0.04,
+      size: Math.random() * 2.2 + 0.5,
+      vy: -(Math.random() * 0.22 + 0.06),
+      vx: (Math.random() - 0.5) * 0.12,
+      opacity: Math.random() * 0.18 + 0.03,
+      wobble: Math.random() * Math.PI * 2,
+      wobbleSpeed: Math.random() * 0.008 + 0.003,
     };
   }
 
@@ -484,7 +582,8 @@ function setupParticles() {
       ctx.fillStyle = 'rgba(184, 150, 62, ' + p.opacity + ')';
       ctx.fill();
       p.y += p.vy;
-      p.x += p.vx;
+      p.wobble += p.wobbleSpeed;
+      p.x += p.vx + Math.sin(p.wobble) * 0.08;
       if (p.y < -10) particles[i] = make();
     }
     requestAnimationFrame(draw);
@@ -523,6 +622,23 @@ function setupCountdown() {
   }
   update();
   setInterval(update, 1000);
+}
+
+function setupScrollIndicator() {
+  var indicator = document.getElementById('scrollIndicator');
+  if (!indicator) return;
+  var hidden = false;
+  function onScroll() {
+    if (!hidden && window.scrollY > 60) {
+      indicator.classList.add('hidden');
+      hidden = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  indicator.addEventListener('click', function () {
+    var ann = document.getElementById('announcement');
+    if (ann) ann.scrollIntoView({ behavior: 'smooth' });
+  });
 }
 
 function setupGallery() {
@@ -611,7 +727,9 @@ function init() {
     '<main id="weddingPage" class="wedding-page">' +
     createHero() +
     createAnnouncement() +
+    jasmineGarland() +
     createDetails() +
+    lampPairDivider() +
     createGallery() +
     createVenue() +
     createClosing() +
@@ -628,10 +746,7 @@ function init() {
     scene.classList.add('removed');
     page.classList.add('visible');
     page.style.transition = 'none';
-    setupAnimations();
-    setupParticles();
-    setupCountdown();
-    showMusicToggle();
+    onPageVisible();
   } else {
     setupEnvelope();
   }
