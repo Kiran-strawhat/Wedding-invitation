@@ -409,12 +409,13 @@ function createEventCard(event, index) {
     '</div>' +
     '<div class="event-actions">' +
     '<button class="btn" data-calendar="' + event.title + '">' + icons.download + ' Add to Calendar</button>' +
-    '<a class="btn" href="' + c.venue.mapsUrl + '" target="_blank" rel="noopener noreferrer">' + icons.navigation + ' Directions</a>' +
+    '<a class="btn btn-filled" href="' + c.venue.mapsUrl + '" target="_blank" rel="noopener noreferrer">' + icons.navigation + ' Directions</a>' +
     '</div></div>';
 }
 
 function createDetails() {
   return '<section class="details section" id="details">' +
+    '<span class="section-label reveal">The Celebration</span>' +
     ornamentReveal() +
     '<h2 class="section-title reveal">Wedding Celebrations</h2>' +
     '<div class="events">' +
@@ -426,28 +427,41 @@ function createDetails() {
 function createGallery() {
   var photos = weddingConfig.gallery;
   if (!photos || photos.length === 0) return '';
-  var items = '';
+  var slides = '';
+  var dots = '';
   for (var i = 0; i < photos.length; i++) {
-    var cls = 'gallery-item reveal' + (photos[i].featured ? ' gallery-item--featured' : '');
-    items += '<div class="' + cls + '" data-index="' + i + '" data-delay="' + (i * 150) + '">' +
+    slides += '<div class="gallery-slide">' +
       '<img src="' + photos[i].src + '" alt="' + photos[i].alt + '" loading="lazy">' +
       '</div>';
+    dots += '<button class="gallery-dot' + (i === 0 ? ' active' : '') + '" data-slide="' + i + '" aria-label="Photo ' + (i + 1) + '"></button>';
   }
+  var nav = photos.length > 1 ?
+    '<button class="gallery-nav gallery-prev" id="galleryPrev" aria-label="Previous photo">' +
+    '<svg viewBox="0 0 24 24" fill="none"><polyline points="15 18 9 12 15 6"/></svg></button>' +
+    '<button class="gallery-nav gallery-next" id="galleryNext" aria-label="Next photo">' +
+    '<svg viewBox="0 0 24 24" fill="none"><polyline points="9 6 15 12 9 18"/></svg></button>' +
+    '<div class="gallery-dots" id="galleryDots">' + dots + '</div>' : '';
+
   return '<section class="gallery section" id="gallery">' +
+    '<span class="section-label reveal">Our Moments</span>' +
     ornamentReveal() +
-    '<h2 class="section-title reveal">Moments</h2>' +
-    '<div class="gallery-grid">' + items + '</div>' +
+    '<h2 class="section-title reveal">Gallery</h2>' +
+    '<div class="gallery-carousel reveal">' +
+    '<div class="gallery-track" id="galleryTrack">' + slides + '</div>' +
+    nav +
+    '</div>' +
     '</section>';
 }
 
 function createVenue() {
   var v = weddingConfig.venue;
   return '<section class="venue section" id="venue">' +
+    '<span class="section-label reveal">The Venue</span>' +
     mandapamArch() +
     '<h2 class="section-title reveal">Venue</h2>' +
     '<p class="venue-name reveal">' + v.name + '</p>' +
     '<p class="venue-address reveal">' + v.address + '</p>' +
-    '<a class="btn-directions reveal" href="' + v.mapsUrl + '" target="_blank" rel="noopener noreferrer">' +
+    '<a class="btn-directions btn-filled reveal" href="' + v.mapsUrl + '" target="_blank" rel="noopener noreferrer">' +
     icons.mapPin + ' Get Directions</a>' +
     '</section>';
 }
@@ -461,6 +475,7 @@ function createClosing() {
     window.location.href
   );
   return '<section class="closing section" id="closing">' +
+    '<span class="section-label reveal">With Love</span>' +
     ornamentReveal() +
     '<p class="closing-message reveal">' + c.closingMessage + '</p>' +
     '<p class="closing-names reveal">' + c.groomName + ' & ' + c.brideName + '</p>' +
@@ -549,6 +564,7 @@ function onPageVisible(fast) {
   revealHeroSequence(fast);
   setupAnimations();
   setupParticles();
+  setupGlobalMotes();
   setupCountdown();
   setupScrollIndicator();
   showMusicToggle();
@@ -558,7 +574,7 @@ function revealHeroSequence(fast) {
   var items = document.querySelectorAll('.hero-seq');
   var delays = fast
     ? [0,0,0,0,0,0,0,0,0,0,0,0]
-    : [200,450,700,1000,1350,1500,1750,2000,2200,2350,2500,2650];
+    : [300,550,850,1200,1550,1750,2000,2300,2550,2750,2950,3150];
 
   for (var i = 0; i < items.length; i++) {
     (function(el, d) {
@@ -657,17 +673,39 @@ function setupCountdown() {
   var el = document.getElementById('countdownTimer');
   if (!el) return;
   function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  el.innerHTML =
+    '<div class="cd-unit"><span class="cd-num" id="cdDays">--</span><span class="cd-label">Days</span></div>' +
+    '<div class="cd-sep">:</div>' +
+    '<div class="cd-unit"><span class="cd-num" id="cdHours">--</span><span class="cd-label">Hours</span></div>' +
+    '<div class="cd-sep">:</div>' +
+    '<div class="cd-unit"><span class="cd-num" id="cdMins">--</span><span class="cd-label">Min</span></div>' +
+    '<div class="cd-sep">:</div>' +
+    '<div class="cd-unit"><span class="cd-num" id="cdSecs">--</span><span class="cd-label">Sec</span></div>';
+
+  var nums = {
+    days: document.getElementById('cdDays'),
+    hours: document.getElementById('cdHours'),
+    mins: document.getElementById('cdMins'),
+    secs: document.getElementById('cdSecs'),
+  };
+
+  function tickNum(span, val) {
+    if (span.textContent !== val) {
+      span.textContent = val;
+      span.classList.remove('cd-tick');
+      void span.offsetWidth;
+      span.classList.add('cd-tick');
+    }
+  }
+
   function update() {
     var cd = getFullCountdown();
-    if (!cd) { el.innerHTML = ''; return; }
-    el.innerHTML =
-      '<div class="cd-unit"><span class="cd-num">' + cd.days + '</span><span class="cd-label">Days</span></div>' +
-      '<div class="cd-sep">&middot;</div>' +
-      '<div class="cd-unit"><span class="cd-num">' + pad(cd.hours) + '</span><span class="cd-label">Hours</span></div>' +
-      '<div class="cd-sep">&middot;</div>' +
-      '<div class="cd-unit"><span class="cd-num">' + pad(cd.minutes) + '</span><span class="cd-label">Min</span></div>' +
-      '<div class="cd-sep">&middot;</div>' +
-      '<div class="cd-unit"><span class="cd-num">' + pad(cd.seconds) + '</span><span class="cd-label">Sec</span></div>';
+    if (!cd) { el.innerHTML = '<p class="cd-done">The celebration has begun!</p>'; return; }
+    tickNum(nums.days, '' + cd.days);
+    tickNum(nums.hours, pad(cd.hours));
+    tickNum(nums.mins, pad(cd.minutes));
+    tickNum(nums.secs, pad(cd.seconds));
   }
   update();
   setInterval(update, 1000);
@@ -690,26 +728,79 @@ function setupScrollIndicator() {
 }
 
 function setupGallery() {
+  var track = document.getElementById('galleryTrack');
+  var prevBtn = document.getElementById('galleryPrev');
+  var nextBtn = document.getElementById('galleryNext');
+  var dotsContainer = document.getElementById('galleryDots');
+  if (!track) return;
+
+  var slides = track.querySelectorAll('.gallery-slide');
+  var dots = dotsContainer ? dotsContainer.querySelectorAll('.gallery-dot') : [];
+  var current = 0;
+  var total = slides.length;
+  var autoTimer = null;
+
+  function goTo(index) {
+    current = ((index % total) + total) % total;
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].classList.toggle('active', i === current);
+    }
+    resetAuto();
+  }
+
+  function resetAuto() {
+    if (autoTimer) clearInterval(autoTimer);
+    if (total > 1) {
+      autoTimer = setInterval(function () { goTo(current + 1); }, 5000);
+    }
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', function () { goTo(current - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { goTo(current + 1); });
+
+  if (dotsContainer) {
+    for (var i = 0; i < dots.length; i++) {
+      dots[i].addEventListener('click', (function (idx) {
+        return function () { goTo(idx); };
+      })(i));
+    }
+  }
+
+  var startX = 0, isDragging = false;
+  track.addEventListener('touchstart', function (e) {
+    startX = e.touches[0].clientX;
+    isDragging = true;
+  }, { passive: true });
+  track.addEventListener('touchend', function (e) {
+    if (!isDragging) return;
+    isDragging = false;
+    var dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
   var lightbox = document.getElementById('lightbox');
   var lightboxImg = document.getElementById('lightboxImg');
   var lightboxClose = document.getElementById('lightboxClose');
-  if (!lightbox) return;
-  var items = document.querySelectorAll('.gallery-item');
-  for (var i = 0; i < items.length; i++) {
-    items[i].addEventListener('click', (function (item) {
-      return function () {
-        var img = item.querySelector('img');
-        lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt;
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      };
-    })(items[i]));
+  if (lightbox) {
+    for (var i = 0; i < slides.length; i++) {
+      slides[i].addEventListener('click', (function (slide) {
+        return function () {
+          var img = slide.querySelector('img');
+          lightboxImg.src = img.src;
+          lightboxImg.alt = img.alt;
+          lightbox.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        };
+      })(slides[i]));
+    }
+    function closeLB() { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
+    lightboxClose.addEventListener('click', closeLB);
+    lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLB(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLB(); });
   }
-  function closeLB() { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
-  lightboxClose.addEventListener('click', closeLB);
-  lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLB(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLB(); });
+
+  resetAuto();
 }
 
 function setupCalendar() {
@@ -739,6 +830,61 @@ function setupMusic() {
   });
 }
 
+function setupGlobalMotes() {
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var canvas = document.getElementById('globalMotes');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var motes = [];
+  var count = window.innerWidth < 600 ? 15 : 28;
+
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+
+  function make(initial) {
+    return {
+      x: Math.random() * (canvas.width || window.innerWidth),
+      y: initial ? Math.random() * (canvas.height || window.innerHeight) : (canvas.height || window.innerHeight) + 10,
+      size: 1 + Math.random() * 2,
+      vy: -(0.12 + Math.random() * 0.25),
+      vx: (Math.random() - 0.5) * 0.15,
+      opacity: 0,
+      maxOpacity: 0.06 + Math.random() * 0.12,
+      phase: Math.random() * Math.PI * 2,
+      wobble: 0.004 + Math.random() * 0.008,
+      life: 0,
+      maxLife: 500 + Math.random() * 700,
+    };
+  }
+
+  for (var i = 0; i < count; i++) { var m = make(true); m.life = Math.random() * m.maxLife; motes.push(m); }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (var i = 0; i < motes.length; i++) {
+      var m = motes[i];
+      m.life++;
+      var ratio = m.life / m.maxLife;
+      if (ratio < 0.1) m.opacity = m.maxOpacity * (ratio / 0.1);
+      else if (ratio > 0.9) m.opacity = m.maxOpacity * ((1 - ratio) / 0.1);
+      else m.opacity = m.maxOpacity;
+
+      ctx.beginPath();
+      ctx.arc(m.x, m.y, m.size, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(212, 185, 106, ' + m.opacity + ')';
+      ctx.fill();
+      m.y += m.vy;
+      m.phase += m.wobble;
+      m.x += m.vx + Math.sin(m.phase) * 0.12;
+      if (m.life >= m.maxLife || m.y < -10) motes[i] = make(false);
+    }
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  draw();
+}
+
 function showMusicToggle() {
   var toggle = document.getElementById('musicToggle');
   if (toggle) setTimeout(function () { toggle.classList.add('show'); }, 600);
@@ -762,6 +908,7 @@ function init() {
     createVenue() +
     createClosing() +
     '</main>' +
+    '<canvas class="global-motes" id="globalMotes"></canvas>' +
     createMusicToggle() +
     createLightbox();
 
